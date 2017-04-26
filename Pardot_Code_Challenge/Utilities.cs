@@ -50,24 +50,29 @@ namespace Pardot_Code_Challenge
         {
             int xIndex = 0;
             bool secretIsAdditive = true;
-            for (var yIndex = (xIndex + 1); yIndex < primes.Length; yIndex++)
-            {
-                // First test SecretAdditive
-                // secret(x + y)
-                int xPlusY = primes[xIndex] + primes[yIndex];
-                int secretOfXPlusY = secretFunction(xPlusY);
-                // secret(x) + secret(y)
-                int secretOfX = secretFunction(primes[xIndex]);
-                int secretOfY = secretFunction(primes[yIndex]);
-                int secretOfXPlusSecretOfY = secretOfX + secretOfY;
-                // set to false if secret(x, y) != secret(x) + secret(y)
-                if (secretOfXPlusY != secretOfXPlusSecretOfY)
+            do {
+                for (var yIndex = (xIndex + 1); yIndex < primes.Length; yIndex++)
                 {
-                    secretIsAdditive = false;
-                    // no need to continue
-                    break;
+                    // First test SecretAdditive
+                    // secret(x + y)
+                    int xPlusY = primes[xIndex] + primes[yIndex];
+                    int secretOfXPlusY = secretFunction(xPlusY);
+                    // secret(x) + secret(y)
+                    int secretOfX = secretFunction(primes[xIndex]);
+                    int secretOfY = secretFunction(primes[yIndex]);
+                    int secretOfXPlusSecretOfY = secretOfX + secretOfY;
+                    // set to false if secret(x, y) != secret(x) + secret(y)
+                    if (secretOfXPlusY != secretOfXPlusSecretOfY)
+                    {
+                        secretIsAdditive = false;
+                        // no need to continue
+                        break;
+                    }
                 }
-            }
+                if (!secretIsAdditive)
+                    break;
+                xIndex++;
+            } while (xIndex < primes.Length);
             return secretIsAdditive;
         }
 
