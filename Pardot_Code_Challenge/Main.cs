@@ -22,6 +22,12 @@ namespace Pardot_Code_Challenge
                 return 1;
             }
 
+            if (isInt && primeLimit < 3)
+            {
+                Console.WriteLine("--- Please enter a prime limit greater than 2 ---");
+                return 1;
+            }
+
             Utilities utils = new Utilities();
             // get all primes less than argument
             int[] primes = utils.EratosthenesSieve(primeLimit);
