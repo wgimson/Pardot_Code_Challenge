@@ -21,17 +21,18 @@ namespace Pardot_Code_Challenge
         public int[] EratosthenesSieve(int limit)
         {
             int[] numbers = initializeArray(limit);
+            // algorithm begins with 2
             int p = 2;
             do
             {
                 for (var i = (2*p); i < limit; i = (i + p))
                 {
-
-                    if (Array.IndexOf(numbers, i) != -1)
+                    var iIndex = Array.IndexOf(numbers, i);
+                    // if number has not already been removed by previous iteration
+                    if (iIndex != -1)
                     {
-                        var pIndex = Array.IndexOf(numbers, i);
                         // remove multiple of P; cannot be prime
-                        numbers = numbers.Where((val, idx) => idx != pIndex).ToArray();
+                        numbers = numbers.Where((val, idx) => idx != iIndex).ToArray();
                     }
                 }
 
@@ -51,8 +52,11 @@ namespace Pardot_Code_Challenge
             int xIndex = 0;
             bool secretIsAdditive = true;
             do {
+                // compare a prime with every prime larger than it in primes array
                 for (var yIndex = (xIndex + 1); yIndex < primes.Length; yIndex++)
                 {
+                    // uncomment to print all prime pairs passed to secret functions
+                    //Console.WriteLine("Applying Secret() to :" + primes[xIndex] + " and " + primes[yIndex]);
                     // First test SecretAdditive
                     // secret(x + y)
                     int xPlusY = primes[xIndex] + primes[yIndex];
@@ -71,6 +75,7 @@ namespace Pardot_Code_Challenge
                 }
                 if (!secretIsAdditive)
                     break;
+                // increment x pointer to compare with all larger primes
                 xIndex++;
             } while (xIndex < primes.Length);
             return secretIsAdditive;
